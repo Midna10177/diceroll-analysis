@@ -1,6 +1,6 @@
+from random import random
 #example: [[2,20],[1,10]] means 2 d20, 1 d10
 def roll(dice=[[2,20],[1,10]],debug=False):
-    from random import random
     #----syntax checker----
     if type(dice) != list:
         raise ValueError('input to roll must be 2d array')
@@ -30,8 +30,8 @@ def rollstat(dice,passes,chunk=10,debug=False):
     chunksize=(max(l)-min(l))*(chunk/100)
     #print(chunksize)
     nums=list()
+    score=0
     for x in l:
-        score=0
         if [x,score] not in nums: nums.append([x,score])
     for x in nums:
         x[1]=100*(l.count(x[0])/len(l))

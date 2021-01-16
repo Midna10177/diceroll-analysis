@@ -1,4 +1,6 @@
 from random import random
+#to call main script, do something like
+# $> roll-ranges.py 18d20 1d10
 #example: [[2,20],[1,10]] means 2 d20, 1 d10
 def roll(dice=[[2,20],[1,10]],debug=False):
     #----syntax checker----
@@ -56,19 +58,26 @@ def rollstat(dice,passes,chunk=10,debug=False):
     newlist.sort(key=lambda x: x[1],reverse=True)
     return newlist
 
+if __name__=='__main__':
+    #example: [[2,20],[1,10]] means 2 d20, 1 d10
+    #chunk is percent of domain range
+    import time
+    t=time.time()
+        
+    argv=sys.argv
+    argv.pop(0)
+    unpackedargs=[ x.split('d') for x in argv ]
+    for c,x in enumerate(unpackedargs):
+        for i,y in enumerate(x):
+            unpackedargs[c][i] = int(y)
+    print(argv)
+    print(unpackedargs)
+    #-------MAIN INPUTS HERE---------
+    for x in rollstat([[18,20]],500000,chunk=39,debug=False):
+        print(x[0],'=',str(round(x[1],3))+'%')
 
-#example: [[2,20],[1,10]] means 2 d20, 1 d10
-#chunk is percent of domain range
-import time
-t=time.time()
-
-#-------MAIN INPUTS HERE---------
-
-for x in rollstat([[18,20]],500000,chunk=39,debug=False):
-    print(x[0],'=',str(round(x[1],3))+'%')
 
 
 
 
-
-print('took',round(time.time()-t,2),'seconds')
+    print('took',round(time.time()-t,2),'seconds')

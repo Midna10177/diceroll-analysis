@@ -1,7 +1,9 @@
 from random import random
+import sys
+
+#example: [[2,20],[1,10]] means 2 d20, 1 d10
 #to call main script, do something like
 # $> roll-ranges.py 18d20 1d10
-#example: [[2,20],[1,10]] means 2 d20, 1 d10
 def roll(dice=[[2,20],[1,10]],debug=False):
     #----syntax checker----
     if type(dice) != list:
@@ -59,11 +61,7 @@ def rollstat(dice,passes,chunk=10,debug=False):
     return newlist
 
 if __name__=='__main__':
-    #example: [[2,20],[1,10]] means 2 d20, 1 d10
-    #chunk is percent of domain range
-    import time
-    t=time.time()
-        
+    
     argv=sys.argv
     argv.pop(0)
     unpackedargs=[ x.split('d') for x in argv ]
@@ -72,8 +70,16 @@ if __name__=='__main__':
             unpackedargs[c][i] = int(y)
     print(argv)
     print(unpackedargs)
+    #example: [[2,20],[1,10]] means 2 d20, 1 d10
+    #chunk is percent of domain range
+    import time
+    t=time.time()
+
     #-------MAIN INPUTS HERE---------
-    for x in rollstat([[18,20]],500000,chunk=39,debug=False):
+    dice=[[18,20]]
+    if len(unpackedargs) > 0:
+        dice=unpackedargs
+    for x in rollstat(dice,500000,chunk=19,debug=False):
         print(x[0],'=',str(round(x[1],3))+'%')
 
 

@@ -1,5 +1,6 @@
 #example: [[2,20],[1,10]] means 2 d20, 1 d10
 from random import random
+import sys
 def roll(dice=[[2,20],[1,10]],debug=False):
     #----syntax checker----
     if type(dice) != list:
@@ -39,21 +40,32 @@ def rollstat(dice,passes,pretty=False):
             print(x)
     return nums
 
+if __name__=='__main__':
+    import time
+    t=time.time()
+    
+    argv=sys.argv
+    argv.pop(0)
+    unpackedargs=[ x.split('d') for x in argv ]
+    for c,x in enumerate(unpackedargs):
+        for i,y in enumerate(x):
+            unpackedargs[c][i] = int(y)
+    print(argv)
+    print(unpackedargs)
 
-import time
-t=time.time()
+    dice=[[18,20]]
+    if len(unpackedargs) > 0:
+        dice=unpackedargs
+    
+
+    #example: [[2,20],[1,10]] means 2 d20, 1 d10
+    #-------MAIN INPUTS HERE---------
+    for x in rollstat([[18,20]],100000,pretty=False):
+        print(str(x[0])+' = '+str(x[1])+'%')
 
 
 
 
-#example: [[2,20],[1,10]] means 2 d20, 1 d10
-#-------MAIN INPUTS HERE---------
-for x in rollstat([[18,20]],100000,pretty=False):
-    print(str(x[0])+' = '+str(x[1])+'%')
 
 
-
-
-
-
-print('took',round(time.time()-t,2),'seconds')
+    print('took',round(time.time()-t,2),'seconds')

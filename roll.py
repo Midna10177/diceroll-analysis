@@ -56,11 +56,10 @@ if __name__=='__main__':
     dice=[[18,20]]
     if len(unpackedargs) > 0:
         dice=unpackedargs
-    
 
     #example: [[2,20],[1,10]] means 2 d20, 1 d10
     #-------MAIN INPUTS HERE---------
-    for x in rollstat([[18,20]],100000,pretty=False):
+    for x in rollstat(dice,100000,pretty=False):
         print(str(x[0])+' = '+str(x[1])+'%')
 
 
